@@ -34,7 +34,7 @@ def search(request):
         page = request.GET.get('page')
 
         try:
-            post_list = paginator.page(page)
+            Post_list = paginator.page(page)
         except PageNotAnInteger:
             Post_list = paginator.page(1)
         except EmptyPage:
