@@ -24,22 +24,24 @@ def post_detail(request, post_id):
         }
     )
 
+
 def search(request):
-    blogs = Post.objects.all()
+    posts_list = Post.objects.all()
     query = request.GET.get('q')
     if query:
-        blogs = Post.objects.filter(
-            (Q(title__icontains=query) | Q(content__icontains=query))).distinct()
-        paginator = Paginator(blogs, 5)
-        page = request.GET.get('page')
+        posts_list = Post.objects.filter(
+            Q(title__icontains=query) | Q(content__icontains=query)).distinct()
+    paginator = Paginator(posts_list, 5)  # 6 posts per page
+    page = request.GET.get('page')
 
-        try:
-            Post_list = paginator.page(page)
-        except PageNotAnInteger:
-            Post_list = paginator.page(1)
-        except EmptyPage:
-            page(paginator.num_pages)
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
 
-        context = { 'Post_list' : Post_list}
-
-        return render(request, 'blog/search.html', context)
+    context = {
+        'Post_list': posts
+    }
+    return render(request, "blog/search.html", context)
