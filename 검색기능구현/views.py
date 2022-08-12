@@ -30,7 +30,7 @@ def search(request):
     if query:
         blogs = Post.objects.filter(
             (Q(title__icontains=query) | Q(content__icontains=query))).distinct()
-        paginator = Paginator(blogs, 12)
+        paginator = Paginator(blogs, 5)
         page = request.GET.get('page')
 
         try:
