@@ -12,7 +12,7 @@
                 {% for post in post_list %}
                 <header class="mb-4">
                     <!-- Post title-->
-                    <h1 class="fw-bolder mb-1"><a class="text-decoration-none link-secondary" href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
+                    <h1 class="fw-bolder mb-1"><a class="text-decoration-none link-secondary" href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h1>
                     <!-- Post meta content-->
                     <div class="text-muted fst-italic mb-2">{{ post.create_time }}</div>
                 </header>
